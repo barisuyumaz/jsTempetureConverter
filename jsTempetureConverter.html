@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tempeture Converter</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style type="text/css">
+		.giris{width: 16rem; padding: 2px; height: 10rem;}
+		.secili{border: 5px; border-style: solid; border-color: green; padding: 5px;}
+	</style>
+</head>
+<body>
+	<div>
+	<input type="text" name="giris_deger" class="giris" placeholder="Değer Giriniz...">
+	<div name="celsius">°C</div>
+	<div name="fahrenheit">°F</div>
+	<div name="kelvin">°K</div>
+	<input type="reset">
+	</div>
+	<script type="text/javascript">
+		const default_c = '°C';
+		const default_f = '°F';
+		const default_k = '°K';
+		$(document).ready(function(){
+			$("div").on("click","div",function(){
+				$("input[type=reset]").click(function(){
+					$('div').removeClass('secili');
+					$("div[name=celsius]").text(default_c);
+					$("div[name=fahrenheit]").text(default_f);
+					$("div[name=kelvin]").text(default_k);
+				});				
+				$('div').removeClass('secili');	
+				$(this).addClass("secili");
+				const giris_deger = parseFloat($("input[name=giris_deger]").val());
+
+				if($(this).text() === '°C' && isNaN(giris_deger) != true){
+					const fah_sonuc = giris_deger*1.8+32;
+					$("div[name=fahrenheit]").text('°F = '+fah_sonuc);
+					const kel_sonuc = giris_deger+273.15;
+					$("div[name=kelvin]").text('°K = '+kel_sonuc);
+				}
+				if($(this).text() === '°F' && isNaN(giris_deger) != true){
+					const cel_sonuc = (giris_deger-32)/1.8;
+					$("div[name=celsius]").text('°C = '+cel_sonuc);
+					const kel_sonuc = (giris_deger-32)*5/9+273.15;
+					$("div[name=kelvin]").text('°K = '+kel_sonuc);
+				}
+				if($(this).text() === '°K' && isNaN(giris_deger) != true){
+					const cel_sonuc = giris_deger-273.15;
+					$("div[name=celsius]").text('°C = '+cel_sonuc);
+					const fah_sonuc = giris_deger*9/5-459.67;
+					$("div[name=fahrenheit]").text('°F = '+fah_sonuc);
+				}				
+			});
+
+		});
+	</script>
+</body>
+</html>
